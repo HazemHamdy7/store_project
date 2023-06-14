@@ -1,5 +1,11 @@
 from django.db import models
 
+#! many to many relationship
+class Promotion(models.Model):
+    descriction = models.CharField(max_length=255)
+    discount = models.FloatField()
+
+#=======================================#
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -9,7 +15,7 @@ class Product(models.Model):
     last_update = models.DateTimeField(auto_now=True)
     
  
-#! on To Many relationship
+#! one To Many relationship
 
 class Collection (models.Model):
     title = models.CharField(max_length=255)
@@ -21,8 +27,10 @@ class Product(models.Model):
      price= models.DecimalField(max_digits=6 , decimal_places= 2)
      inventory = models.IntegerField()
      last_updated = models.DateTimeField(auto_now=True)
+     collection= models.ForeignKey(Collection, on_delete=models.PROTECT)  
+      
+     promotions = models.ManyToManyField(Promotion)
      
-     collection= models.ForeignKey(Collection, on_delete=models.PROTECT)   
 
 
 class Customer(models.Model):
