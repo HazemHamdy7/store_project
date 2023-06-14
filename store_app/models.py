@@ -1,9 +1,9 @@
 from django.db import models
 
 #! many to many relationship
-class Promotion(models.Model):
-    descriction = models.CharField(max_length=255)
-    discount = models.FloatField()
+# class Promotion(models.Model):
+#     descriction = models.CharField(max_length=255)
+#     discount = models.FloatField()
 
 #=======================================#
 
@@ -19,19 +19,19 @@ class Product(models.Model):
 
 class Collection (models.Model):
     title = models.CharField(max_length=255)
-    featured_product = models.ForeignKey(
-        'Product',on_delete=models.SET_NULL,null=True , related_name='+')
+    # featured_product = models.ForeignKey(
+    #     Product,on_delete=models.SET_NULL,null=True)
     
  
 class Product(models.Model):
      title = models.CharField(max_length=255)
+     slug = models.SlugField()
      description = models.TextField()
-     price= models.DecimalField(max_digits=6 , decimal_places= 2)
+     unit_price= models.DecimalField(max_digits=6 , decimal_places= 2)
      inventory = models.IntegerField()
      last_updated = models.DateTimeField(auto_now=True)
      collection= models.ForeignKey(Collection, on_delete=models.PROTECT)  
-      
-     promotions = models.ManyToManyField(Promotion)
+    #  promotions = models.ManyToManyField(Promotion)
      
 
 
@@ -51,8 +51,8 @@ class Customer(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=11)
     birth_date = models.DateField(null=True)
-    membership = models.CharField(
-        max_length=1, choices=MEMBER_CHOICES, default=MEMBERSHIP_BRONZE)
+    # membership = models.CharField(
+    #     max_length=1, choices=MEMBER_CHOICES, default=MEMBERSHIP_BRONZE)
 
 
 class Order(models.Model):
